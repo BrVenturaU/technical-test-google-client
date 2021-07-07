@@ -1,6 +1,5 @@
 <template>
-    <div>
-        <h1>Anonimo</h1>
+    <div class="cotainer p-5">
         <router-view/>
     </div>
 </template>
