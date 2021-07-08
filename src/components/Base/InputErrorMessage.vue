@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="my-1">
     <div
       class="text-danger"
       v-for="(propertyErrors, property, index) in errors"

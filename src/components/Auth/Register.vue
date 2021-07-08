@@ -1,8 +1,8 @@
 <template>
     <div class="row">
         <div class="col-12 col-sm-6 col-md-4  mx-auto">
-            <div class="card rounded-lg p-4 shadow-lg">
-                <span class="icon icon-person-add mx-auto mt-3"/>
+            <div class="card rounded-lg px-4 shadow-lg">
+                <span class="icon icon-person-add mx-auto mt-1"/>
                 <div class="card-body">
                     <form @submit.prevent="createAccount">
                         <FormGroup
