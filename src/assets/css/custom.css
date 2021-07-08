@@ -24,6 +24,18 @@ body {
   height: 148px;
 }
 
+.icon-user{
+  background-image: url("~@/assets/icons/user.svg");
+  width: 148px;
+  height: 148px;
+}
+
+.icon-logout{
+  background-image: url("~@/assets/icons/power.svg");
+  width: 24px;
+  height: 24px;
+}
+
 .register-bg-image{
     background-image: url("~@/assets/images/bg.jpg");
     /* Center and scale the image nicely */

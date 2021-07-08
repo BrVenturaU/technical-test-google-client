@@ -1,20 +1,35 @@
 import Vue from 'vue'
 import VueRouter from 'vue-router'
-import Home from '../views/Home.vue'
+import Dashboard from '../views/Dashboard.vue'
+import User from '../views/User.vue'
 import Guest from '../views/Guest.vue';
 
 Vue.use(VueRouter)
 
 const routes = [
   {
-    path: '/',
-    name: 'Home',
-    component: Home
+    path: '/dashboard',
+    name: 'Dashboard',
+    component: Dashboard,
+    children:[
+      {
+        path:'/', 
+        name: 'Map',
+        component: () => import( '../components/GoogleMap')
+      }
+    ]
   },
   {
-    path: '/about',
-    name: 'About',
-    component: () => import('../views/About.vue')
+    path: '/user',
+    name: 'User',
+    component: User,
+    children:[
+      {
+        path:'profile', 
+        name: 'Profile',
+        component: () => import( '../components/User/Profile')
+      }
+    ]
   },
   {
     path: '/auth',

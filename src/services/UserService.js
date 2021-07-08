@@ -30,6 +30,10 @@ class UserService{
     profile(){
         return this.#userClient.get(`${this.path}/profile`);
     }
+
+    update(payload){
+        return this.#userClient.put(`${this.path}/profile`, payload);
+    }
 }
 
 export const userService = new UserService();
