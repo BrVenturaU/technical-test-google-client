@@ -8,6 +8,7 @@ class AuthService{
         this.path = '/authentication';
         this.#sessionTokenKeyName = 'session_token';
         this.#authClient = this.#configureAxios();
+        this.#setRequestInterceptors();
     }
 
     #configureAxios(){

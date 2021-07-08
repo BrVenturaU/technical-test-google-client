@@ -1,5 +1,6 @@
 import router from '@/router';
 import {authService} from '../../services/AuthService';
+import { userService } from '../../services/UserService';
 import { getError } from '../../utils/ErrorHandlerManager';
 import { localStorageManager } from '../../utils/LocalStorageManager';
 
@@ -27,7 +28,7 @@ const mutations = {
 };
 
 const actions = {
-    async login({ commit }, user) {
+    async login({ commit, dispatch, state }, user) {
         try {
             commit('SET_LOADING', true);
             const response = await authService.login(user);
@@ -36,8 +37,8 @@ const actions = {
             localStorageManager.setToLocalStorage("session_token", responseBody.token);
             commit("SET_ERROR", null);
             commit('SET_LOADING', false);
-            // commit("SET_USER", {name:responseBody.name, email: responseBody.email});
-            // AuthServiceInstance.setToLocalStorage('user', JSON.stringify({name:responseBody.name, email: responseBody.email}));
+            await dispatch('getProfile');
+            localStorageManager.setToLocalStorage("user", JSON.stringify(state.user));
             alert("Ha iniciado sesión correctamente");
             router.push({name: 'Home'});
         } catch (error) {
@@ -66,7 +67,16 @@ const actions = {
             commit('SET_LOADING', false);
         }
     },
-    async logout({commit}){
+    async getProfile({commit}){
+        try {
+            const response = await userService.profile();
+            const responseBody = response.data.body;
+            commit("SET_USER", responseBody);
+        } catch (error) {
+            commit("SET_ERROR", error);
+        }
+    },
+    logout({commit}){
         try {
             
             authService.logout();
