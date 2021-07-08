@@ -11,66 +11,42 @@
                             placeholder="Nombre..."
                             v-model="firstName"
                             />
-                            <div class="text-danger" v-for="(error, property, index) in errors" :key="index">
-                                <strong v-if="property == 'FirstName'">
-                                    <span v-for="(propertyError, index) in error" :key="index">{{propertyError}}</span>
-                                </strong>
-                            </div>
+                            <InputErrorMessage :errors="errors" :propertyNames="['FirstName']" />
                         <FormGroup
                             divClass="form-group text-start"
                             typeInput="text"
                             placeholder="Apellido..."
                             v-model="lastName"
                             />
-                            <div class="text-danger" v-for="(error, property, index) in errors" :key="index">
-                                <strong v-if="property == 'LastName'">
-                                    <span v-for="(propertyError, index) in error" :key="index">{{propertyError}}</span>
-                                </strong>
-                            </div>
+                            <InputErrorMessage :errors="errors" :propertyNames="['LastName']" />
                         <FormGroup
                             divClass="form-group text-start"
                             typeInput="text"
                             placeholder="Nombre de usuario..."
                             v-model="userName"
                             />
-                            <div class="text-danger" v-for="(error, property, index) in errors" :key="index">
-                                <strong v-if="property == 'UsertName'">
-                                    <span v-for="(propertyError, index) in error" :key="index">{{propertyError}}</span>
-                                </strong>
-                            </div>
+                            <InputErrorMessage :errors="errors" :propertyNames="['UserName', 'duplicateUserName']" />
                         <FormGroup
                             divClass="form-group text-start"
                             typeInput="text"
                             placeholder="Correo..."
                             v-model="email"
                             />
-                            <div class="text-danger" v-for="(error, property, index) in errors" :key="index">
-                                <strong v-if="property == 'Email'">
-                                    <span v-for="(propertyError, index) in error" :key="index">{{propertyError}}</span>
-                                </strong>
-                            </div>
+                            <InputErrorMessage :errors="errors" :propertyNames="['Email', 'invalidEmail', 'duplicateEmail']" />
                         <FormGroup
                             divClass="form-group text-start"
                             typeInput="password"
                             placeholder="Contraseña..."
                             v-model="password"
                             />
-                            <div class="text-danger" v-for="(error, property, index) in errors" :key="index">
-                                <strong v-if="property == 'Password'">
-                                    <span v-for="(propertyError, index) in error" :key="index">{{propertyError}}</span>
-                                </strong>
-                            </div>
+                            <InputErrorMessage :errors="errors" :propertyNames="['Password', 'passwordRequiresDigit', 'passwordTooShort']" />
                         <FormGroup
                             divClass="form-group text-start"
                             typeInput="password"
                             placeholder="Confirmar..."
                             v-model="passwordConfirmation"
                             />
-                            <div class="text-danger" v-for="(error, property, index) in errors" :key="index">
-                                <strong v-if="property == 'PasswordConfirmation'">
-                                    <span v-for="(propertyError, index) in error" :key="index">{{propertyError}}</span>
-                                </strong>
-                            </div>
+                            <InputErrorMessage :errors="errors" :propertyNames="['PasswordConfirmation']" />
                         <button type="submit"
                             class="btn btn-principal rounded-lg shadow-lg w-50 mt-5">
                             Enviar
@@ -89,10 +65,12 @@
 </template>
 <script>
 import FormGroup from '../Base/FormGroup.vue';
+import InputErrorMessage from '../Base/InputErrorMessage.vue';
 import { mapActions, mapState } from "vuex";
 export default {
     components:{
-        FormGroup
+        FormGroup,
+        InputErrorMessage
     },
     data() {
         return {
