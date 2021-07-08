@@ -51,6 +51,7 @@
                             class="btn btn-principal rounded-lg shadow-lg w-50 mt-5">
                             Enviar
                         </button>
+                        <router-link :to="{name: 'Login'}" class="btn btn-primary mx-2 rounded-lg shadow-lg w-25 mt-5">Login</router-link>
                     </form>
                     <div class="text-center mt-4" v-if="loading">
                         <b-spinner type="grow" label="Loading..."></b-spinner>
@@ -71,6 +72,10 @@ export default {
     components:{
         FormGroup,
         InputErrorMessage
+    },
+    created() {
+        document.body.classList.remove('login-bg-image');
+        document.body.classList.add('register-bg-image');
     },
     data() {
         return {
@@ -104,13 +109,5 @@ export default {
 }
 </script>
 <style>
-    body{
-        /* The image used */
-        background-image: url("~@/assets/images/bg.jpg");
 
-        /* Center and scale the image nicely */
-        background-position: center;
-        background-repeat: no-repeat;
-        background-size: cover;
-    }
 </style>

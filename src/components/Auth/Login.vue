@@ -6,16 +6,12 @@
 </template>
 <script>
 export default {
-    
+    created() {
+        document.body.classList.remove('register-bg-image');
+        document.body.classList.add('login-bg-image');
+    },
 }
 </script>
 <style>
-body{
-    /* The image used */
-    background-image: url("~@/assets/images/bg-2.jpg");
-    /* Center and scale the image nicely */
-    background-position: center;
-    background-repeat: no-repeat;
-    background-size: cover;
-}
+
 </style>
