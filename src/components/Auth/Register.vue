@@ -4,7 +4,7 @@
             <div class="card rounded-lg p-4 shadow-lg">
                 <span class="icon icon-person-add mx-auto mt-3"/>
                 <div class="card-body">
-                    <form action="">
+                    <form @submit.prevent="createAccount">
                         <FormGroup
                             divClass="form-group text-start"
                             typeInput="text"
@@ -35,14 +35,14 @@
                             />
                         <FormGroup
                             divClass="form-group text-start"
-                            typeInput="text"
+                            typeInput="password"
                             placeholder="Contraseña..."
                             v-model="password"
                             :required="true"
                             />
                         <FormGroup
                             divClass="form-group text-start"
-                            typeInput="text"
+                            typeInput="password"
                             placeholder="Confirmar..."
                             v-model="passwordConfirmation"
                             :required="true"
@@ -52,6 +52,12 @@
                             Enviar
                         </button>
                     </form>
+                    <div class="text-center mt-4" v-if="loading">
+                        <b-spinner type="grow" label="Loading..."></b-spinner>
+                    </div>
+                    <div class="text-center mt-4" v-if="error">
+                        <strong class="text-danger">{{error}}</strong>
+                    </div>
                 </div>
             </div>
         </div>
@@ -59,6 +65,7 @@
 </template>
 <script>
 import FormGroup from '../Base/FormGroup.vue';
+import { mapActions, mapState } from "vuex";
 export default {
     components:{
         FormGroup
@@ -71,6 +78,25 @@ export default {
             email: '',
             password: '',
             passwordConfirmation:''
+        }
+    },
+    computed:{
+        ...mapState('user', ['loading', 'error'])
+    },
+    methods: {
+        ...mapActions('user', ['register']),
+        createAccount(){
+            const vm = this;
+            const user = {
+                firstName: vm.firstName,
+                lastName: vm.lastName,
+                userName: vm.userName,
+                email: vm.email,
+                password: vm.password,
+                passwordConfirmation:vm.passwordConfirmation
+            }
+
+            vm.register(user);
         }
     },
 }
