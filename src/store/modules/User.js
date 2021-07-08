@@ -93,8 +93,8 @@ const actions = {
 
 const getters = {
     authUser: () => {
-        //const user = JSON.parse(AuthServiceInstance.getFromLocalStorage('user'));
-        return null;
+        const user = JSON.parse(localStorageManager.getFromLocalStorage('user'));
+        return user;
     },
     error: (state) => {
         return state.error;
