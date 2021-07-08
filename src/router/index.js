@@ -1,6 +1,7 @@
 import Vue from 'vue'
 import VueRouter from 'vue-router'
 import Dashboard from '../views/Dashboard.vue'
+import User from '../views/User.vue'
 import Guest from '../views/Guest.vue';
 
 Vue.use(VueRouter)
@@ -21,12 +22,12 @@ const routes = [
   {
     path: '/user',
     name: 'User',
-    component: Dashboard,
+    component: User,
     children:[
       {
         path:'profile', 
-        name: 'Map',
-        component: () => import( '../components/GoogleMap')
+        name: 'Profile',
+        component: () => import( '../components/User/Profile')
       }
     ]
   },

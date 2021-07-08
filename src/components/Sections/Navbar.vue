@@ -17,14 +17,14 @@
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
             <ul class="navbar-nav mr-auto ml-3">
                 <li class="nav-item">
-                    <router-link :to="{ name: 'Dashboard' }" class="nav-link"
+                    <router-link :to="{ name: 'Map' }" class="nav-link"
                     >Dashboard</router-link
                     >
                 </li>
             </ul>
             <ul class="navbar-nav">
                 <li class="nav-item">
-                <router-link to="">Hi! {{ authUser.userName }}</router-link>
+                <router-link :to="{name: 'Profile'}">Hi! {{ authUser.userName }}</router-link>
                 </li>
                 <li class="nav-item">
                     <span class="icon icon-logout align-middle"></span>
