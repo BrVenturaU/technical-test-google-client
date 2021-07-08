@@ -48,8 +48,6 @@ export default {
     },
     created(){
         this.access_token = process.env.VUE_APP_MAP_KEY;
-        document.body.classList.remove('register-bg-image');
-        document.body.classList.remove('login-bg-image');
     },
     mounted(){
         this.getUserGeolocation();

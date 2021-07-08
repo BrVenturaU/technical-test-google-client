@@ -40,7 +40,7 @@ const actions = {
             await dispatch('getProfile');
             localStorageManager.setToLocalStorage("user", JSON.stringify(state.user));
             alert("Ha iniciado sesión correctamente");
-            router.push({name: 'Dashboard'});
+            router.push({name: 'Map'});
         } catch (error) {
             commit("SET_ERROR", getError(error));
             commit('SET_LOADING', false);
@@ -107,9 +107,9 @@ const actions = {
 };
 
 const getters = {
-    authUser: () => {
+    authUser: (state) => {
         const user = JSON.parse(localStorageManager.getFromLocalStorage('user'));
-        return user;
+        return user ?? state.user;
     },
     error: (state) => {
         return state.error;
