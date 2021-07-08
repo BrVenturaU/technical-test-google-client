@@ -27,8 +27,15 @@ class LocationService{
         });
     }
 
-    getLocationByIp(ip){
+    async getLocationByIp(){
+        const myIpResponse = await this.#getMyIp();
+        const ip = myIpResponse.data.ip;
         return this.#locationClient.get(`${this.path}/${ip}`);
+    }
+
+    // eslint-disable-next-line no-dupe-class-members
+    #getMyIp(){
+        return axios.get("https://api.ipify.org/?format=json");
     }
 
     getGeolocation(){

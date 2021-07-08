@@ -1,13 +1,16 @@
 <template>
   <div class="hello">
         <h1>{{ msg }}: {{authUser.fullName}}</h1>
-        <h2>Geo: {{userGeolocation.latitude}}, {{userGeolocation.longitude}}</h2>
+        <h2 v-if="userLocation">Geo: {{userLocation.latitude}}, {{userLocation.longitude}}</h2>
         <div class="text-center mt-4" v-if="loading">
             <b-spinner type="grow" label="Loading..."></b-spinner>
         </div>
-        <!-- <div class="text-center mt-4" v-if="errorMessage">
+        <div class="text-center mt-4" v-if="locationMessage">
+            <strong class="text-success">{{locationMessage}}</strong>
+        </div>
+        <div class="text-center mt-4" v-if="errorMessage">
             <strong class="text-danger">{{errorMessage}}</strong>
-        </div> -->
+        </div>
     </div>
 </template>
 
@@ -18,13 +21,17 @@ export default {
     props: {
         msg: String
     },
+    created(){
+        document.body.classList.remove('register-bg-image');
+        document.body.classList.remove('login-bg-image');
+    },
     mounted(){
         this.getUserGeolocation();
     },
     computed:{
-        ...mapState('location', ['loading', 'erorrMessage']),
+        ...mapState('location', ['loading', 'errorMessage', 'locationMessage']),
         ...mapGetters('user', ['authUser']),
-        ...mapGetters('location', ['userGeolocation'])
+        ...mapGetters('location', ['userLocation'])
     },
     methods:{
         ...mapActions('location', ['getUserGeolocation'])
