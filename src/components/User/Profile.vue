@@ -50,7 +50,7 @@
           />
           <button
             type="submit"
-            class="btn btn-principal rounded-lg shadow-lg w-50 mt-2"
+            class="btn btn-principal rounded-lg shadow-lg w-50 mt-3"
           >
             Enviar
           </button>
@@ -101,7 +101,13 @@ export default {
       };
 
       vm.update(user);
+      vm.clearInputs();
     },
+    clearInputs(){
+        this.currentPassword = "";
+        this.password = "";
+        this.passwordConfirmation = "";
+    }
   },
 };
 </script>

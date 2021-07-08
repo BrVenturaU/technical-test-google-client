@@ -40,7 +40,7 @@ const actions = {
             await dispatch('getProfile');
             localStorageManager.setToLocalStorage("user", JSON.stringify(state.user));
             alert("Ha iniciado sesión correctamente");
-            router.push({name: 'Home'});
+            router.push({name: 'Dashboard'});
         } catch (error) {
             commit("SET_ERROR", getError(error));
             commit('SET_LOADING', false);
@@ -74,6 +74,21 @@ const actions = {
             commit("SET_USER", responseBody);
         } catch (error) {
             commit("SET_ERROR", error);
+        }
+    },
+    async update({commit}, user){
+        try {
+            commit('SET_LOADING', true);
+            const response = await userService.update(user);
+            const responseBody = response.data.body;
+            localStorageManager.setToLocalStorage("user", JSON.stringify(responseBody));
+            commit("SET_USER", responseBody);
+            commit("SET_ERROR", null);
+            commit('SET_LOADING', false);
+            alert(response.data.message);
+        } catch (error) {
+            commit("SET_ERROR", getError(error));
+            commit('SET_LOADING', false);
         }
     },
     logout({commit}){
