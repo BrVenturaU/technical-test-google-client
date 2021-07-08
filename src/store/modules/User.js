@@ -61,7 +61,7 @@ const actions = {
             commit("SET_ERROR", null);
             commit('SET_LOADING', false);
             alert(response.data.message);
-            router.push("/login");
+            router.push({name: 'Login'});
         } catch (error) {
             commit("SET_ERROR", getError(error));
             commit('SET_LOADING', false);
@@ -94,11 +94,11 @@ const actions = {
     logout({commit}){
         try {
             
-            authService.logout();
+            localStorageManager.clearLocalStorage();
             alert("Sesión finalizada con éxito.");
             commit("SET_ERROR", null);
             commit("SET_USER", null);
-            router.push("/login");
+            router.push({name: 'Login'});
 
         } catch (error) {
             commit("SET_ERROR", getError(error));

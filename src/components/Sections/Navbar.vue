@@ -27,7 +27,7 @@
                 <router-link :to="{name: 'Profile'}">Hi! {{ authUser.userName }}</router-link>
                 </li>
                 <li class="nav-item">
-                    <span class="icon icon-logout align-middle"></span>
+                    <span @click="logout" class="icon icon-logout align-middle"></span>
                 </li>
             </ul>
         </div>
@@ -36,13 +36,15 @@
 </template>
 
 <script>
-import { mapGetters } from "vuex";
+import { mapActions, mapGetters } from "vuex";
 export default {
   name: "Navbar",
   computed: {
     ...mapGetters("user", ["authUser"]),
   },
-  methods: {},
+  methods: {
+      ...mapActions('user', ['logout'])
+  },
 };
 </script>
 
