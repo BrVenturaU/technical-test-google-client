@@ -2,7 +2,7 @@
     <div class="row mt-5">
         <div class="col-12 col-sm-6 col-md-4  mx-auto">
             <div class="card rounded-lg px-4 shadow-lg">
-                <span class="icon icon-entrance mx-auto mt-1"/>
+                <span class="icon icon-entrance mx-auto mt-1"></span>
                 <div class="card-body">
                     <form @submit.prevent="logUser">
                         <FormGroup
