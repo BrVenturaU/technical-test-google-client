@@ -2,7 +2,8 @@ export const getError = (error) => {
     const errorMessage = "Error en el API, intente de nuevo.";
   
     if (!error.response) {
-      console.error(`API not found`);
+      console.log(error)
+      console.error(`API not found or ${error.message}`);
       return errorMessage;
     }
     if (process.env.NODE_ENV === "development") {
