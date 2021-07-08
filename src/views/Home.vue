@@ -1,5 +1,5 @@
 <template>
-  <div class="mt-5">
+  <div class="container-fluid">
     <GoogleMap msg="Bienvenido"/>
   </div>
 </template>
