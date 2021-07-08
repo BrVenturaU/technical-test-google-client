@@ -1,13 +1,13 @@
 import axios from 'axios'
 import { localStorageManager } from '../utils/LocalStorageManager';
 
-class AuthService{
-    #authClient;
+class UserService{
+    #userClient;
     #sessionTokenKeyName;
     constructor(){
-        this.path = '/authentication';
+        this.path = '/user';
         this.#sessionTokenKeyName = 'session_token';
-        this.#authClient = this.#configureAxios();
+        this.#userClient = this.#configureAxios();
         this.#setRequestInterceptors();
     }
 
@@ -19,9 +19,7 @@ class AuthService{
 
     // eslint-disable-next-line no-dupe-class-members
     #setRequestInterceptors(){
-        this.#authClient.interceptors.request.use((request) => {
-            if(request.url.includes('login') || request.url.includes('register'))
-                return request;
+        this.#userClient.interceptors.request.use((request) => {
             request.headers['Authorization'] = `Bearer ${localStorageManager.getFromLocalStorage(`${this.#sessionTokenKeyName}`)}`;
             return request;
         }, (error) => {
@@ -29,20 +27,12 @@ class AuthService{
         });
     }
 
-    login(payload){
-        return this.#authClient.post(`${this.path}/login`, payload);
-    }
-
-    register(payload){
-        return this.#authClient.post(`${this.path}/register`, payload);
-    }
-
-    logout(){
-        localStorageManager.clearLocalStorage();
+    profile(){
+        return this.#userClient.get(`${this.path}/profile`);
     }
 }
 
-export const authService = new AuthService();
+export const userService = new UserService();
 export default{
-    AuthService
+    UserService
 }

@@ -1,6 +1,8 @@
 import router from '@/router';
 import {authService} from '../../services/AuthService';
+import { userService } from '../../services/UserService';
 import { getError } from '../../utils/ErrorHandlerManager';
+import { localStorageManager } from '../../utils/LocalStorageManager';
 
 const namespaced = true;
 
@@ -20,26 +22,25 @@ const mutations = {
         state.loading = loading;
     },
     SET_ERROR(state, error) {
-        state.errorMessage = error.message;
-        state.errors = error.errors;
+        state.errorMessage = error?.message;
+        state.errors = error?.errors;
     },
 };
 
 const actions = {
-    async login({ commit }, user) {
+    async login({ commit, dispatch, state }, user) {
         try {
             commit('SET_LOADING', true);
-            const data = { email: user.email, password: user.password };
-            const response = await authService.login(data);
+            const response = await authService.login(user);
             const responseBody = response.data.body;
             
-            authService.setToLocalStorage("token", responseBody.token);
+            localStorageManager.setToLocalStorage("session_token", responseBody.token);
             commit("SET_ERROR", null);
             commit('SET_LOADING', false);
-            // commit("SET_USER", {name:responseBody.name, email: responseBody.email});
-            // AuthServiceInstance.setToLocalStorage('user', JSON.stringify({name:responseBody.name, email: responseBody.email}));
+            await dispatch('getProfile');
+            localStorageManager.setToLocalStorage("user", JSON.stringify(state.user));
             alert("Ha iniciado sesión correctamente");
-            router.push("/");
+            router.push({name: 'Home'});
         } catch (error) {
             commit("SET_ERROR", getError(error));
             commit('SET_LOADING', false);
@@ -66,7 +67,16 @@ const actions = {
             commit('SET_LOADING', false);
         }
     },
-    async logout({commit}){
+    async getProfile({commit}){
+        try {
+            const response = await userService.profile();
+            const responseBody = response.data.body;
+            commit("SET_USER", responseBody);
+        } catch (error) {
+            commit("SET_ERROR", error);
+        }
+    },
+    logout({commit}){
         try {
             
             authService.logout();
@@ -83,8 +93,8 @@ const actions = {
 
 const getters = {
     authUser: () => {
-        //const user = JSON.parse(AuthServiceInstance.getFromLocalStorage('user'));
-        return null;
+        const user = JSON.parse(localStorageManager.getFromLocalStorage('user'));
+        return user;
     },
     error: (state) => {
         return state.error;

@@ -18,6 +18,12 @@ body {
     height: 148px;
 }
 
+.icon-entrance{
+  background-image: url("~@/assets/icons/entrance.svg");
+  width: 148px;
+  height: 148px;
+}
+
 .register-bg-image{
     background-image: url("~@/assets/images/bg.jpg");
     /* Center and scale the image nicely */
