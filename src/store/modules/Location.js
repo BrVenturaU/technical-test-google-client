@@ -36,7 +36,6 @@ const actions = {
         try {
             commit('SET_LOADING', true);
             const geolocation = await locationService.getGeolocation();
-            console.log(geolocation);
             commit('SET_GEOLOCATION', geolocation)
             commit('SET_ERROR', null);
             commit('SET_LOADING', false);
@@ -51,7 +50,6 @@ const actions = {
         try {
             const response = await locationService.getLocationByIp();
             const responseBody = response.data.body;
-            console
             commit('SET_IPLOCATION', responseBody);
             commit('SET_ERROR', null);
             commit('SET_LOADING', false);
