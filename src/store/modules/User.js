@@ -7,7 +7,8 @@ const namespaced = true;
 const state = {
     user: null,
     loading: false,
-    error: null,
+    errors: null,
+    errorMessage: null
 };
 
 
@@ -19,7 +20,8 @@ const mutations = {
         state.loading = loading;
     },
     SET_ERROR(state, error) {
-        state.error = error;
+        state.errorMessage = error.message;
+        state.errors = error.errors;
     },
 };
 

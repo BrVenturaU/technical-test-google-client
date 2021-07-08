@@ -11,7 +11,10 @@ export const getError = (error) => {
       console.error(error.response.headers);
     }
     if (error.response.data && error.response.data.status === 'fail') {
-      return error.response.data.message;
+      return {
+        message: error.response.data.message,
+        errors: error.response.data.body
+      };
     }
   
     return errorMessage;

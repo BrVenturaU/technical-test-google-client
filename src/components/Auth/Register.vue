@@ -10,43 +10,67 @@
                             typeInput="text"
                             placeholder="Nombre..."
                             v-model="firstName"
-                            :required="true"
                             />
+                            <div class="text-danger" v-for="(error, property, index) in errors" :key="index">
+                                <strong v-if="property == 'FirstName'">
+                                    <span v-for="(propertyError, index) in error" :key="index">{{propertyError}}</span>
+                                </strong>
+                            </div>
                         <FormGroup
                             divClass="form-group text-start"
                             typeInput="text"
                             placeholder="Apellido..."
                             v-model="lastName"
-                            :required="true"
                             />
+                            <div class="text-danger" v-for="(error, property, index) in errors" :key="index">
+                                <strong v-if="property == 'LastName'">
+                                    <span v-for="(propertyError, index) in error" :key="index">{{propertyError}}</span>
+                                </strong>
+                            </div>
                         <FormGroup
                             divClass="form-group text-start"
                             typeInput="text"
                             placeholder="Nombre de usuario..."
                             v-model="userName"
-                            :required="true"
                             />
+                            <div class="text-danger" v-for="(error, property, index) in errors" :key="index">
+                                <strong v-if="property == 'UsertName'">
+                                    <span v-for="(propertyError, index) in error" :key="index">{{propertyError}}</span>
+                                </strong>
+                            </div>
                         <FormGroup
                             divClass="form-group text-start"
                             typeInput="text"
                             placeholder="Correo..."
                             v-model="email"
-                            :required="true"
                             />
+                            <div class="text-danger" v-for="(error, property, index) in errors" :key="index">
+                                <strong v-if="property == 'Email'">
+                                    <span v-for="(propertyError, index) in error" :key="index">{{propertyError}}</span>
+                                </strong>
+                            </div>
                         <FormGroup
                             divClass="form-group text-start"
                             typeInput="password"
                             placeholder="Contraseña..."
                             v-model="password"
-                            :required="true"
                             />
+                            <div class="text-danger" v-for="(error, property, index) in errors" :key="index">
+                                <strong v-if="property == 'Password'">
+                                    <span v-for="(propertyError, index) in error" :key="index">{{propertyError}}</span>
+                                </strong>
+                            </div>
                         <FormGroup
                             divClass="form-group text-start"
                             typeInput="password"
                             placeholder="Confirmar..."
                             v-model="passwordConfirmation"
-                            :required="true"
                             />
+                            <div class="text-danger" v-for="(error, property, index) in errors" :key="index">
+                                <strong v-if="property == 'PasswordConfirmation'">
+                                    <span v-for="(propertyError, index) in error" :key="index">{{propertyError}}</span>
+                                </strong>
+                            </div>
                         <button type="submit"
                             class="btn btn-principal rounded-lg shadow-lg w-50 mt-5">
                             Enviar
@@ -55,8 +79,8 @@
                     <div class="text-center mt-4" v-if="loading">
                         <b-spinner type="grow" label="Loading..."></b-spinner>
                     </div>
-                    <div class="text-center mt-4" v-if="error">
-                        <strong class="text-danger">{{error}}</strong>
+                    <div class="text-center mt-4" v-if="errorMessage">
+                        <strong class="text-danger">{{errorMessage}}</strong>
                     </div>
                 </div>
             </div>
@@ -81,7 +105,7 @@ export default {
         }
     },
     computed:{
-        ...mapState('user', ['loading', 'error'])
+        ...mapState('user', ['loading', 'errorMessage', 'errors'])
     },
     methods: {
         ...mapActions('user', ['register']),
