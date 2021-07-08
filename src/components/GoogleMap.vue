@@ -1,18 +1,20 @@
 <template>
-    <div class="container mt-5">
+    <div class="container mt-3">
         <div class="row">
-            <h1 class="text-dark">The only true map for: <small class="text-muted">{{authUser.fullName}}</small></h1>
-            <h2 class="text-dark" v-if="userLocation && userLocation.city">{{userLocation.city}}</h2>
-            <h3 class="text-dark" v-if="userLocation">Geo: {{userLocation.latitude}}, {{userLocation.longitude}}</h3>
-            
-            <div class="text-center mt-2" v-if="loading">
-                <b-spinner type="grow" label="Loading..."></b-spinner>
-            </div>
-            <div class="text-center mt-2" v-if="locationMessage">
-                <strong class="text-success">{{locationMessage}}</strong>
-            </div>
-            <div class="text-center mt-2" v-if="errorMessage">
-                <strong class="text-danger">{{errorMessage}}</strong>
+            <div class="col-12">
+                <h1 class="text-dark">The only true map for: <small class="text-muted">{{authUser.fullName}}</small></h1>
+                <h2 class="text-dark" v-if="userLocation && userLocation.city">{{userLocation.city}}</h2>
+                <h3 class="text-dark" v-if="userLocation">Geo: {{userLocation.latitude}}, {{userLocation.longitude}}</h3>
+                
+                <div class="text-center mt-2" v-if="loading">
+                    <b-spinner type="grow" label="Loading..."></b-spinner>
+                </div>
+                <div class="text-center" v-if="locationMessage">
+                    <strong class="text-success">{{locationMessage}}</strong>
+                </div>
+                <div class="text-center" v-if="errorMessage">
+                    <strong class="text-danger">{{errorMessage}}</strong>
+                </div>
             </div>
         </div>
         <div class="row">
