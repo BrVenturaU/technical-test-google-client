@@ -60,6 +60,10 @@ const routes = [
     ]
   },
   {
+    path: '/',
+    redirect: '/auth/login'
+  },
+  {
     path: "/:catchAll(.*)",
     name: "notFound",
     component: () =>
@@ -70,7 +74,6 @@ const routes = [
 const router = new VueRouter({
   routes
 })
-
 router.beforeEach((to, from, next) => {
   const middleware = to.meta.middleware;
   const context = { to, from, next, store };
