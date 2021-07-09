@@ -109,7 +109,7 @@ const actions = {
 const getters = {
     authUser: (state) => {
         const user = JSON.parse(localStorageManager.getFromLocalStorage('user'));
-        return user ?? state.user;
+        return user ?? state.user ?? null;
     },
     error: (state) => {
         return state.error;
