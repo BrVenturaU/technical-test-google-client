@@ -1,32 +1,34 @@
 <template>
   <div id="app">
-    <div id="nav">
-      <router-link to="/">Home</router-link> |
-      <router-link to="/about">About</router-link>
+    <div v-if="isIdle && loggedIn">
+      <ModalIdle />
     </div>
     <router-view/>
   </div>
 </template>
-
+<script>
+import ModalIdle from '@/components/Sections/ModalIdle.vue'
+import { mapGetters } from 'vuex';
+export default {
+  components:{
+    ModalIdle
+  },
+  computed: {
+    ...mapGetters('user', ['loggedIn']),
+    isIdle() {
+			return this.$store.state.idleVue.isIdle;
+		}
+  }
+}
+</script>
 <style>
+@import url('https://fonts.googleapis.com/css2?family=Open+Sans+Condensed:wght@300&family=Raleway:wght@100;300&display=swap');
+@import './assets/css/custom.css';
 #app {
-  font-family: Avenir, Helvetica, Arial, sans-serif;
+  font-family: 'Raleway', sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   text-align: center;
   color: #2c3e50;
-}
-
-#nav {
-  padding: 30px;
-}
-
-#nav a {
-  font-weight: bold;
-  color: #2c3e50;
-}
-
-#nav a.router-link-exact-active {
-  color: #42b983;
 }
 </style>
