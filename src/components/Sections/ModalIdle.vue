@@ -3,7 +3,7 @@
     <b-modal id="modal" v-model="show"  size="md" title="¿Sigues ahí?" button-size="sm" ok-only>
       <div class="d-block text-center">
         <p>Has dejado tu sesión abierta.</p>
-        <p>Tienes {{seconds}} segundos para regresar, de lo contrario se cerrará automaticamente.</p>
+        <p>Tienes <strong>{{seconds}}</strong> segundos para regresar, de lo contrario se cerrará automaticamente.</p>
       </div>
     </b-modal>
   </div>

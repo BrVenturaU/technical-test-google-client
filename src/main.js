@@ -36,7 +36,7 @@ const app = new Vue({
 Vue.use(IdleVue, {
   eventEmitter: app,
   store,
-  idleTime: 3000, // 3 seconds
+  idleTime: process.env.VUE_APP_INACTIVITY_TIME, 
   startAtIdle: false
 });
 

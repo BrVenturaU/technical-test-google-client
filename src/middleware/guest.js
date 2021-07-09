@@ -2,7 +2,6 @@ import { localStorageManager } from "../utils/LocalStorageManager";
 
 export default function guest({ next, store }) {
     const token = localStorageManager.getFromLocalStorage("session_token");
-    console.log(token && !store.getters["user/authUser"]);
     if (token && !store.getters["user/authUser"]) {
       store.dispatch("user/getProfile").then(() => {
         if (store.getters["user/authUser"]) {
