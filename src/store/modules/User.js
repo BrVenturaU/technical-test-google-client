@@ -118,14 +118,9 @@ const getters = {
         return state.loading;
     },
     loggedIn: (state) => {
-        return !!state.user;
-    },
-    guest: () => {
-        // const storageItem = AuthServiceInstance.getFromLocalStorage("guest");
-        // if (!storageItem) return false;
-        // if (storageItem === "isGuest") return true;
-        // if (storageItem === "isNotGuest") return false;
-    },
+        const user = JSON.parse(localStorageManager.getFromLocalStorage('user'));
+        return !!state.user || !!user;
+    }
 };
 
 export default {

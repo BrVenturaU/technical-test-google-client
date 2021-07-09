@@ -13,7 +13,7 @@ import { mapActions, mapGetters } from 'vuex';
 export default {
   created(){
     const vm = this;
-    if(vm.authUser){
+    if(vm.loggedIn){
       let timerId = setInterval(() => {
       vm.time -= 1000;
       if (!vm.$store.state.idleVue.isIdle) clearInterval(timerId);
@@ -31,7 +31,7 @@ export default {
     }
   },
   computed:{
-    ...mapGetters('user', ['authUser']),
+    ...mapGetters('user', ['loggedIn']),
       seconds(){
         return this.time/1000;
       }

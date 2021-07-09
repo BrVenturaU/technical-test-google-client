@@ -1,6 +1,6 @@
 <template>
   <div id="app">
-    <div v-if="isIdle && authUser">
+    <div v-if="isIdle && loggedIn">
       <ModalIdle />
     </div>
     <router-view/>
@@ -14,7 +14,7 @@ export default {
     ModalIdle
   },
   computed: {
-    ...mapGetters('user', ['authUser']),
+    ...mapGetters('user', ['loggedIn']),
     isIdle() {
 			return this.$store.state.idleVue.isIdle;
 		}
