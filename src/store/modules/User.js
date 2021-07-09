@@ -33,17 +33,16 @@ const mutations = {
 };
 
 const actions = {
-    async login({ commit, dispatch, state }, user) {
+    async login({ commit, dispatch }, user) {
         try {
             commit('SET_LOADING', true);
             const response = await authService.login(user);
             const responseBody = response.data.body;
             localStorageManager.setToLocalStorage("session_token", responseBody.token);
-            dispatch('autoRefreshTask');
+            //dispatch('autoRefreshTask');
             commit("SET_ERROR", null);
             commit('SET_LOADING', false);
             await dispatch('getProfile');
-            localStorageManager.setToLocalStorage("user", JSON.stringify(state.user));
             alert("Ha iniciado sesión correctamente");
             router.push({name: 'Map'});
         } catch (error) {
@@ -86,7 +85,6 @@ const actions = {
             commit('SET_LOADING', true);
             const response = await userService.update(user);
             const responseBody = response.data.body;
-            localStorageManager.setToLocalStorage("user", JSON.stringify(responseBody));
             commit("SET_USER", responseBody);
             commit("SET_ERROR", null);
             commit('SET_LOADING', false);
@@ -134,8 +132,7 @@ const actions = {
 
 const getters = {
     authUser: (state) => {
-        const user = JSON.parse(localStorageManager.getFromLocalStorage('user'));
-        return user ?? state.user ?? null;
+        return state.user ?? null;
     },
     error: (state) => {
         return state.error;
@@ -144,8 +141,7 @@ const getters = {
         return state.loading;
     },
     loggedIn: (state) => {
-        const user = JSON.parse(localStorageManager.getFromLocalStorage('user'));
-        return !!state.user || !!user;
+        return !!state.user;
     }
 };
 
