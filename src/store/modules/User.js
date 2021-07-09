@@ -39,7 +39,7 @@ const actions = {
             const response = await authService.login(user);
             const responseBody = response.data.body;
             localStorageManager.setToLocalStorage("session_token", responseBody.token);
-            //dispatch('autoRefreshTask');
+            dispatch('autoRefreshTask');
             commit("SET_ERROR", null);
             commit('SET_LOADING', false);
             await dispatch('getProfile');
