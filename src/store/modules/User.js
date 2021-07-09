@@ -120,10 +120,10 @@ const actions = {
             
             localStorageManager.clearLocalStorage();
             clearInterval(state.refreshTask);
+            commit("SET_USER", null);
             alert("Sesión finalizada con éxito.");
             commit('SET_REFRESH_TASK', null);
             commit("SET_ERROR", null);
-            commit("SET_USER", null);
             router.push({name: 'Login'});
 
         } catch (error) {
