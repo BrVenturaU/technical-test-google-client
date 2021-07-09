@@ -37,6 +37,10 @@ class AuthService{
         return this.#authClient.post(`${this.path}/register`, payload);
     }
 
+    refreshToken(){
+        return this.#authClient.get(`${this.path}/refresh`);
+    }
+
     logout(){
         localStorageManager.clearLocalStorage();
     }

@@ -1,4 +1,5 @@
 import router from '@/router';
+import jwtDecode from 'jwt-decode';
 import {authService} from '../../services/AuthService';
 import { userService } from '../../services/UserService';
 import { getError } from '../../utils/ErrorHandlerManager';
@@ -10,13 +11,17 @@ const state = {
     user: null,
     loading: false,
     errors: null,
-    errorMessage: null
+    errorMessage: null,
+    refreshTask: null
 };
 
 
 const mutations = {
     SET_USER(state, user) {
         state.user = user;
+    },
+    SET_REFRESH_TASK(state, taskId){
+        state.refreshTask = taskId;
     },
     SET_LOADING(state, loading) {
         state.loading = loading;
@@ -32,8 +37,8 @@ const actions = {
         try {
             commit('SET_LOADING', true);
             const response = await authService.login(user);
+            dispatch('autoRefreshTask');
             const responseBody = response.data.body;
-            
             localStorageManager.setToLocalStorage("session_token", responseBody.token);
             commit("SET_ERROR", null);
             commit('SET_LOADING', false);
@@ -91,11 +96,32 @@ const actions = {
             commit('SET_LOADING', false);
         }
     },
-    logout({commit}){
+    async refreshToken({dispatch}){
+        try {
+            const response = await authService.refreshToken();
+            const responseBody = response.data.body;
+            localStorageManager.setToLocalStorage("session_token", responseBody.token);
+            dispatch('autoRefreshTask');
+        } catch (error) {
+            getError(error);
+        }
+    },
+    autoRefreshTask({commit, dispatch}){
+        const sessionToken = localStorageManager.getFromLocalStorage("session_token");
+        const {exp} = jwtDecode(sessionToken);
+        const now = Date.now() / 1000;
+        let timeToRefresh = exp - now;
+        timeToRefresh -= process.env.VUE_APP_REFRESH_TOKEN;
+        const taskId = setTimeout(() => dispatch('refreshToken'), timeToRefresh * 1000);
+        commit('SET_REFRESH_TASK', taskId);
+    }, 
+    logout({commit, state}){
         try {
             
             localStorageManager.clearLocalStorage();
+            clearInterval(state.refreshTask);
             alert("Sesión finalizada con éxito.");
+            commit('SET_REFRESH_TASK', null);
             commit("SET_ERROR", null);
             commit("SET_USER", null);
             router.push({name: 'Login'});
