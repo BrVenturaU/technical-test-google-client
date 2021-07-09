@@ -58,7 +58,13 @@ const routes = [
         meta: { middleware: [guest] },
       }
     ]
-  }
+  },
+  {
+    path: "/:catchAll(.*)",
+    name: "notFound",
+    component: () =>
+      import( "../components/Sections/NotFound"),
+  },
 ]
 
 const router = new VueRouter({
